@@ -14,14 +14,60 @@ let itemCollected = false
 let gameSpeed = 200
 let gameInterval
 let score = 0
+let level = 1
 
 let iso = new Isomer(document.getElementById("game"));
 let Shape = Isomer.Shape;
 let Point = Isomer.Point;
 let Color = Isomer.Color;
-let playfieldColor = new Color(51,51,51);
-let snakeColor = new Color(153,153,153);
-let itemColor = new Color(255,204,0)
+let colorPalette = {
+    playfieldColor: new Color(51,51,51),
+    snakeColor: new Color(153,153,153),
+    itemColor: new Color(255,204,0)
+}
+
+const palette1 = {
+    playfieldColor: new Color(50, 98, 115),
+    snakeColor: new Color(238, 238, 238),
+    itemColor: new Color(227, 151, 116)
+}
+
+const palette2 = {
+    playfieldColor: new Color(58, 87, 67),
+    snakeColor: new Color(252, 236, 82),
+    itemColor: new Color(59, 112, 128)
+}
+
+const palette3 = {
+    playfieldColor: new Color(25, 11, 40),
+    snakeColor: new Color(104, 87, 98),
+    itemColor: new Color(229, 83, 129)
+}
+
+const palette4 = {
+    playfieldColor: new Color(57, 57, 58),
+    snakeColor: new Color(133, 255, 199),
+    itemColor: new Color(255, 133, 82)
+}
+
+const palette5 = {
+    playfieldColor: new Color(41, 23, 17),
+    snakeColor: new Color(141, 220, 164),
+    itemColor: new Color(99, 50, 110)
+}
+
+const palette6 = {
+    playfieldColor: new Color(99, 50, 110),
+    snakeColor: new Color(242, 243, 174),
+    itemColor: new Color(255, 82, 27)
+}
+
+const palette7 = {
+    playfieldColor: new Color(51,51,51),
+    snakeColor: new Color(153,153,153),
+    itemColor: new Color(255,204,0)
+}
+
 
 let snake = [
     {
@@ -167,26 +213,47 @@ function itemCollision(){
         )
         if(score == 5){
             gameSpeed -= 50
+            level = 2
+            changeColorPalette(palette1)
         }
         if(score == 10){
             gameSpeed -= 40
+            level = 3
+            changeColorPalette(palette2)
         }
         if(score == 15){
             gameSpeed -= 30
+            level = 4
+            changeColorPalette(palette3)
         }
         if(score == 20){
             gameSpeed -= 20
+            level = 5
+            changeColorPalette(palette4)
         }
         if(score == 25){
             gameSpeed -= 20
+            level = 6
+            changeColorPalette(palette5)
         }
         if(score == 30){
             gameSpeed -= 10
+            level = 7
+            changeColorPalette(palette6)
         }
         if(score%5==0){
             clearInterval(gameInterval)
             gameInterval = setInterval(runGame,gameSpeed)
+            document.getElementById("level").innerHTML = level
         }
+    }
+}
+
+function changeColorPalette(palette){
+    colorPalette = {
+        playfieldColor: palette.playfieldColor,
+        snakeColor: palette.snakeColor,
+        itemColor: palette.itemColor
     }
 }
 
@@ -205,17 +272,17 @@ function drawSnake(height){
     })
     ctx.clearRect(0,0,canvas.width,canvas.height);
     iso.add(
-        Shape.Prism(new Point(0,0,-1),8,8,1),playfieldColor
+        Shape.Prism(new Point(0,0,-1),8,8,1),colorPalette.playfieldColor
     )
 
     snakeClone.forEach(element => {
         if(!element.type){
             iso.add(
-            Shape.Prism(new Point(0 + element.x,element.y,0), 0.5, 0.5, height),snakeColor
+            Shape.Prism(new Point(0 + element.x,element.y,0), 0.5, 0.5, height),colorPalette.snakeColor
         )
         } else if (!itemCollected){
             iso.add(
-                Shape.Prism(new Point(0 + element.x,element.y,0), 0.5, 0.5, 0.5),itemColor
+                Shape.Prism(new Point(0 + element.x,element.y,0), 0.5, 0.5, 0.5),colorPalette.itemColor
             )
         }
             
@@ -253,7 +320,7 @@ function animateGameOver(){
     let height = 0.5
     let animation = setInterval(()=>{
         drawSnake(height)
-        messageBox.innerHTML = "GAME OVER"
+        messageBox.innerHTML = "<h2 style='text-shadow: 2px 2px #000'>GAME OVER</h2><button onclick='location.reload()'>RETRY</button>"
         if(height > 0){
             height -= 0.01
         } else clearInterval(animation)
