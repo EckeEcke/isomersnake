@@ -1,4 +1,4 @@
-# isomersnake
+# isomer snake
 Isometric snake game built using Isomer.js and Vanilla JavaScript
 
 - control game with the arrow keys
