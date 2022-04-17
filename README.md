@@ -5,5 +5,6 @@ Isometric snake game built using Isomer.js and Vanilla JavaScript
 - collect the yellow cubes to score points
 - snake grows with every item
 - speed increases
+- color palette changes with each level
 
 Working codepen: https://codepen.io/EckeEcke/pen/mdpQwbx
