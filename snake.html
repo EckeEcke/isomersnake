@@ -9,7 +9,10 @@
 </head>
 <body>
     <h1>ISOMER SNAKE</h1>
-    <h2>SCORE: <span id="score">0</span></h2>
+    <div class="scoreboard-wrapper" style="display:flex;justify-content: space-between; width:500px; margin: 2rem auto 0">
+        <h2>SCORE: <span id="score">0</span></h2>
+        <h2>LEVEL: <span id="level">1</span></h2>
+    </div>
     <div id="canvas-wrapper">
         <canvas id="game" height="700px" width="1000px"></canvas>
         <h2 id="message"><button onclick="startGame()">START</button></h2>
